@@ -3,16 +3,10 @@ package util
 import (
 	"database/sql"
 	"log"
-	"os"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
 )
-
-func FileExist(path string) bool {
-	_, err := os.Stat(path)
-	return !os.IsNotExist(err)
-}
 
 func createSql() {
 	db, err := sql.Open("sqlite3", "./data.db")
