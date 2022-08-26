@@ -17,26 +17,37 @@ jobs:
       with:
         go-version: 1.18
 
-    - name: Build
+    - name: Build window
+      env: 
+        CGO_ENABLED: 1
+        GOOS: windows
+        GOARCH: amd64
       run: |
-        CGO_ENABLED=1
-        GOOS=windows
-        GOARCH=amd64
         go build -o ./build/UniAnalytics_windows_amd64.exe main.go
-    - name: Build
+    - name: Build macos
+      env: 
+        CGO_ENABLED: 1
+        GOOS: darwin
+        GOARCH: amd64
       run: |
-        CGO_ENABLED=1
-        GOOS=darwin
-        GOARCH=amd64
         go build -o ./build/UniAnalytics_macos_amd64 main.go
-    - name: Build
+    - name: Build linux
+      env: 
+        CGO_ENABLED: 1
+        GOOS: linux
+        GOARCH: amd64
       run: |
-        CGO_ENABLED=1
-        GOOS=linux
-        GOARCH=amd64
         go build -o ./build/UniAnalytics_linux_amd64 main.go
 
     - uses: actions/upload-artifact@v3
       with:
-        name: build
-        path: ./build/
+        name: UniAnalytics_windows_amd64.exe
+        path: ./build/UniAnalytics_windows_amd64.exe
+    - uses: actions/upload-artifact@v3
+      with:
+        name: UniAnalytics_macos_amd64
+        path: ./build/UniAnalytics_macos_amd64
+    - uses: actions/upload-artifact@v3
+      with:
+        name: UniAnalytics_linux_amd64
+        path: ./build/UniAnalytics_linux_amd64
