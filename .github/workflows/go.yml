@@ -1,0 +1,42 @@
+name: Go
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+
+    - name: Build
+      run: |
+        CGO_ENABLED=1
+        GOOS=windows
+        GOARCH=amd64
+        go build -o UniAnalytics_windows_amd64.exe main.go
+    - name: Build
+      run: |
+        CGO_ENABLED=1
+        GOOS=darwin
+        GOARCH=amd64
+        go build -o UniAnalytics_macos_amd64 main.go
+    - name: Build
+      run: |
+        CGO_ENABLED=1
+        GOOS=linux
+        GOARCH=amd64
+        go build -o UniAnalytics_linux_amd64 main.go
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: UniAnalytics_windows_amd64.exe
+        path: ./UniAnalytics_windows_amd64.exe
