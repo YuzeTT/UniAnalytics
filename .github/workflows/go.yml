@@ -8,6 +8,26 @@ on:
 
 jobs:
   build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+    - name: Build macos
+      env: 
+        CGO_ENABLED: 1
+        GOOS: darwin
+        GOARCH: amd64
+      run: |
+        go build -o ./build/UniAnalytics_macos_amd64 main.go
+    - uses: actions/upload-artifact@v3
+      with:
+        name: UniAnalytics_macos_amd64
+        path: ./build/UniAnalytics_macos_amd64
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -16,21 +36,6 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.18
-
-    # - name: Build window
-    #   env: 
-    #     CGO_ENABLED: 1
-    #     GOOS: windows
-    #     GOARCH: amd64
-    #   run: |
-    #     go build -o ./build/UniAnalytics_windows_amd64.exe main.go
-    - name: Build macos
-      env: 
-        CGO_ENABLED: 1
-        GOOS: darwin
-        GOARCH: amd64
-      run: |
-        go build -o ./build/UniAnalytics_macos_amd64 main.go
     - name: Build linux
       env: 
         CGO_ENABLED: 1
@@ -38,16 +43,28 @@ jobs:
         GOARCH: amd64
       run: |
         go build -o ./build/UniAnalytics_linux_amd64 main.go
-
-    # - uses: actions/upload-artifact@v3
-    #   with:
-    #     name: UniAnalytics_windows_amd64.exe
-    #     path: ./build/UniAnalytics_windows_amd64.exe
-    - uses: actions/upload-artifact@v3
-      with:
-        name: UniAnalytics_macos_amd64
-        path: ./build/UniAnalytics_macos_amd64
     - uses: actions/upload-artifact@v3
       with:
         name: UniAnalytics_linux_amd64
         path: ./build/UniAnalytics_linux_amd64
+  build:
+    runs-on:  windows-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+
+    - name: Build window
+      env: 
+        CGO_ENABLED: 1
+        GOOS: windows
+        GOARCH: amd64
+      run: |
+        go build -o ./build/UniAnalytics_windows_amd64.exe main.go
+    - uses: actions/upload-artifact@v3
+      with:
+        name: UniAnalytics_windows_amd64.exe
+        path: ./build/UniAnalytics_windows_amd64.exe
