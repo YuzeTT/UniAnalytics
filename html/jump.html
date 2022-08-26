@@ -1,0 +1,154 @@
+{{ define "jump.html" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>跳转</title>
+  <style>
+    html, body {
+      background-color: #F6F6FB;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      position: absolute;
+      left: 50%;
+      top: 30%;
+      transform: translateX(-50%);
+      max-width: 500px;
+      width: 86%;
+    }
+
+    .name {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .name_text {
+      font-size: 1.3rem;
+      color: #3860f4;
+    }
+
+    .card {
+      overflow: auto;
+      background: #FFFFFF;
+      font-size: 12px;
+      box-shadow: rgb(0 0 0 / 12%) 0px 0px 1px 0px, rgb(0 0 0 / 12%) 0px 8px 12px -4px, rgb(0 0 0 / 5%) 0px 4px 4px -2px, rgb(0 0 0 / 8%) 0px -2px 0px 0px inset;
+      border-radius: 4px;
+    }
+
+    .top {
+      padding: 24px;
+      display: flex;
+      gap: 15px;
+      background: #FFFFFF;
+    }
+
+    .bottom {
+      padding: 16px 24px;
+      /* background-color: #F9FAFB; */
+      text-align: right;
+      border-top: 1px solid rgb(210, 214, 234);
+      background: #FFFFFF;
+    }
+
+    .icon_box {
+      background-color: #fff0f0;
+      width: 2.5rem;
+      height: 2.5rem;
+      /* padding: 5px; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 9999px;
+      flex-shrink: 0;
+    }
+
+    .icon {
+      color: #f44336;
+      height: 1.5rem; 
+      width: 1.5rem;
+    }
+    .link {
+      border-radius: 2px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 12px;
+      white-space: nowrap;
+      display: inline-flex;
+      height: 32px;
+      line-height: 32px;
+      padding: 0px 12px;
+      color: rgb(255, 255, 255);
+      background: linear-gradient(135deg, #6488fc 0%,#3860f4 100%);
+      box-shadow: rgb(92 118 232) 0px 2px 4px -1px, rgb(0 0 0 / 12%) 0px -3px 0px 0px inset, rgb(0 0 0 / 12%) 0px 1px 0px 0px inset;
+      transition: box-shadow 0.16s;
+    }
+
+    .link:hover {
+      background: linear-gradient(135deg, #5c76e8 0%,#3357df 100%);
+      box-shadow: rgb(92 118 232) 0px 5px 8px -4px, rgb(0 0 0 / 12%) 0px -3px 0px 0px inset, rgb(0 0 0 / 12%) 0px 1px 0px 0px inset;
+    }
+
+    .title {
+      color: rgb(10, 22, 51);
+      font-size: 1.125rem;
+      font-weight: bold;
+      margin-bottom: .5rem;
+    }
+
+    .text {
+      color: rgb(82, 96, 117);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .url_box {
+      background-color: #F7F7F7;
+      border-radius: 5px;
+      border: 1px solid rgb(217, 217, 217);
+    }
+
+    .url {
+      padding: 0 .5rem;
+      line-height: 2rem;
+      color: #4B5563;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="name">
+      <svg t="1661503102125" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5578" width="200" height="200"><path d="M819.7 136.4l-2-0.7L522 66.4c-2.9-0.7-5.8-1-8.7-1.1H511.6c-2.9 0-5.8 0.4-8.7 1.1l-295.7 69.3-2 0.7c-43.6 15.2-72.9 59.5-72.9 110.3v339.2c0 59.6 20.7 116.9 61.5 170.2 31 40.4 73.7 78.6 126.8 113.4 46.2 30.2 92.3 52.5 122.8 65.8 13.9 6.1 27.5 11.6 40.5 16.5 16.5 6.2 20.9 7.8 29 7.8 6.3 0 12.4-1.5 17.8-4.1 21.4-7.6 97.1-36 173.6-86.1 53.2-34.8 95.8-72.9 126.8-113.4 40.8-53.3 61.5-110.5 61.5-170.2V246.7c0-50.8-29.3-95.1-72.9-110.3z m-9.1 449.5c0 76.6-50.4 148.6-149.8 214-60.5 39.8-122 65-148.3 74.9-26-9.8-86.6-34.6-146.9-74-69-45.1-151.2-119-151.2-214.9V246.7c0-16.4 8.3-28.6 16.5-32.4l281.6-66 281.6 66c8.3 3.8 16.5 15.9 16.5 32.4v339.2z" p-id="5579" fill="#3860f4"></path></svg>
+      <div class="name_text">{{ .title }}</div>
+    </div>
+    <div class="card">
+      <div class="top">
+        <!-- <div class="icon_box">
+          <svg class="icon" x-description="Heroicon name: outline/exclamation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+        </div> -->
+        <div style="width: 100%;">
+          <div class="title">{{ .card_title }}</div>
+          <div class="text">{{ .card_text }}</div>
+          <div class="url_box">
+            <div class="url">{{ .url }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <a class="link" href="/?j={{ .url }}&type=1">继续访问</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+{{ end }}

@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"os"
+	"time"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -22,7 +23,8 @@ func createSql() {
 			"uid"	INTEGER NOT NULL UNIQUE,
 			"created_at"	TEXT NOT NULL,
 			"url"	TEXT NOT NULL,
-			"tip_page"	BLOB NOT NULL DEFAULT 'false',
+			"ip"	TEXT,
+			"type"	INTEGER NOT NULL DEFAULT 0,
 			PRIMARY KEY("uid" AUTOINCREMENT)
 		);
 	`
@@ -46,8 +48,22 @@ func InitSql() {
 	log.Println("数据库初始化完毕")
 }
 
+func AddSql(url string, ip string) {
+	db, err := sql.Open("sqlite3", "./data.db")
+	checkErr(err)
+	stmt, err := db.Prepare("INSERT INTO links(uid, created_at, url, ip, type) values(?,?,?,?,?)")
+	checkErr(err)
+	stmt.Exec(nil, time.Now().Format("2006-01-02 15:04:05"), url, ip, 0)
+	// res, err := stmt.Exec(nil, time.Now().Format("2006-01-02 15:04:05"), url, 0)
+	// checkErr(err)
+	// id, err := res.LastInsertId()
+	// checkErr(err)
+	// fmt.Println(id)
+	db.Close()
+}
+
 func checkErr(err error) {
 	if err != nil {
-		panic(err)
+		log.Panicln(err)
 	}
 }
