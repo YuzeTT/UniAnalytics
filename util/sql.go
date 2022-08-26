@@ -48,11 +48,6 @@ func AddSql(url string, ip string) {
 	stmt, err := db.Prepare("INSERT INTO links(uid, created_at, url, ip, type) values(?,?,?,?,?)")
 	checkErr(err)
 	stmt.Exec(nil, time.Now().Format("2006-01-02 15:04:05"), url, ip, 0)
-	// res, err := stmt.Exec(nil, time.Now().Format("2006-01-02 15:04:05"), url, 0)
-	// checkErr(err)
-	// id, err := res.LastInsertId()
-	// checkErr(err)
-	// fmt.Println(id)
 	db.Close()
 }
 

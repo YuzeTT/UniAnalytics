@@ -24,7 +24,7 @@ type Config struct {
 }
 
 func init() {
-	fmt.Println("===== UniAnalytics v0.2.1 =====")
+	fmt.Println("===== UniAnalytics v0.2.2 =====")
 	log.Println("初始化中...")
 	t := time.Now()
 	util.InitConfig()
