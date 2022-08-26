@@ -1,4 +1,4 @@
-module hsott.cn/UniShortLink
+module hsott.cn/UniAnalytics
 
 go 1.18
 

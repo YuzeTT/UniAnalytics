@@ -1,7 +1,9 @@
 package main
 
 import (
+	"embed"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -9,8 +11,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/yaml.v2"
-	"hsott.cn/UniShortLink/util"
+	"hsott.cn/UniAnalytics/util"
 )
+
+//go:embed html
+var html embed.FS
 
 type Config struct {
 	Title      string `yaml:"title"`
@@ -19,7 +24,7 @@ type Config struct {
 }
 
 func init() {
-	fmt.Println("=== UniAnalytics v0.2.0 ===")
+	fmt.Println("===== UniAnalytics v0.2.1 =====")
 	log.Println("初始化中...")
 	t := time.Now()
 	util.InitConfig()
@@ -45,7 +50,9 @@ func main() {
 
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
-	r.LoadHTMLGlob("html/*")
+	// r.LoadHTMLGlob("html/*")
+	template, _ := template.ParseFS(html, "html/*.html")
+	r.SetHTMLTemplate(template)
 
 	r.GET("/", func(ctx *gin.Context) {
 		j := ctx.Query("j")
@@ -68,7 +75,7 @@ func main() {
 	})
 
 	log.Println("启动服务完成，耗时", time.Since(t))
-	log.Println("启动成功: 127.0.0.1:8080 ")
+	log.Println("启动成功: http://127.0.0.1:8080 ")
 	log.Println("===========================")
 	r.Run(":8080")
 }
